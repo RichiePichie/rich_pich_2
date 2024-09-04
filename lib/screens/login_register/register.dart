@@ -11,7 +11,6 @@ class _RegisterState extends State<Register> {
   late final TextEditingController _email;
   late final TextEditingController _password;
   late final TextEditingController _userName;
-
   @override
   void initState() {
     _email = TextEditingController();
