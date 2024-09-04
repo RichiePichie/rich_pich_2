@@ -12,7 +12,7 @@ class _RegisterState extends State<Register> {
   late final TextEditingController _killNiggas;
   late final TextEditingController _password;
   late final TextEditingController _userName;
-  late final TextEditingController _userNe;
+  late final TextEditingController _usere;
   @override
   void initState() {
     _email = TextEditingController();
