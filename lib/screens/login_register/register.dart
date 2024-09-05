@@ -1,4 +1,7 @@
+// ignore_for_file: must_be_immutable, prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -9,10 +12,9 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   late final TextEditingController _email;
-  late final TextEditingController _killNiggas;
   late final TextEditingController _password;
   late final TextEditingController _userName;
-  late final TextEditingController _usere;
+
   @override
   void initState() {
     _email = TextEditingController();
@@ -29,49 +31,39 @@ class _RegisterState extends State<Register> {
     super.dispose();
   }
 
+  void clearText(TextEditingController name) {
+    setState(() {
+      name.clear();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          TextField(
-            controller: _userName,
-            decoration: InputDecoration(
-                hintText: 'Enter Your Username',
-                suffix: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _userName.clear();
-                      });
-                    },
-                    icon: Icon(Icons.clear))),
-          ),
-          TextField(
-            controller: _email,
-            decoration: InputDecoration(
-                hintText: 'Enter Your Email',
-                suffix: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _email.clear();
-                      });
-                    },
-                    icon: Icon(Icons.clear))),
-          ),
-          TextField(
-            controller: _password,
-            decoration: InputDecoration(
-                hintText: 'Enter Your Password',
-                suffix: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _password.clear();
-                      });
-                    },
-                    icon: Icon(Icons.clear))),
-          ),
+          CutsomTextField(name: _userName, nama: "Username"),
+          CutsomTextField(name: _email, nama: "Email"),
+          CutsomTextField(name: _password, nama: "Password"),
         ],
       ),
+    );
+  }
+}
+
+class CutsomTextField extends StatelessWidget {
+  TextEditingController name = TextEditingController();
+  String nama;
+  CutsomTextField({super.key, required this.name, required this.nama});
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: name,
+      decoration: InputDecoration(
+          hintText: 'Enter Your $nama',
+          suffix: IconButton(onPressed: () {}, icon: Icon(Icons.clear))),
     );
   }
 }

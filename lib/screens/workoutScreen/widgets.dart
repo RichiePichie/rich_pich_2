@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:rich_pich_2/data/database.dart';
 import 'package:rich_pich_2/screens/workoutScreen/workout_widget.dart';
