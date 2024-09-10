@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:rich_pich_2/screens/home_page.dart';
 import 'package:rich_pich_2/data/database.dart';
+import 'package:rich_pich_2/screens/login_register/login.dart';
 import 'package:rich_pich_2/screens/login_register/register.dart';
 
 
@@ -32,6 +33,6 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: SafeArea(child: Register()));
+        home: SafeArea(child: Login()));
   }
 }
