@@ -18,6 +18,9 @@ dependencies:
   image_picker: ^1.1.2
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  font_awesome_flutter: ^10.0.0
+
+
   # firebase_core: ^3.4.0  # Core Firebase SDK
   # firebase_auth: ^5.2.0
   # cloud_firestore: ^5.4.0
