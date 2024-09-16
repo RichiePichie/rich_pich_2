@@ -108,7 +108,7 @@ class ToDoAdapter extends TypeAdapter<ToDo> {
   int get hashCode => typeId.hashCode;
 
   @override
-  bool operator ==(Object other) =>
+  bool operator == (Object other) =>
       identical(this, other) ||
       other is ToDoAdapter &&
           runtimeType == other.runtimeType &&

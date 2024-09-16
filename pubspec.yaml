@@ -19,13 +19,13 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   font_awesome_flutter: ^10.0.0
+  firebase_core: ^3.4.1
+  cloud_firestore: ^5.4.1
+  firebase_auth: ^5.2.1
+  firebase_storage: ^12.3.0
 
 
-  # firebase_core: ^3.4.0  # Core Firebase SDK
-  # firebase_auth: ^5.2.0
-  # cloud_firestore: ^5.4.0
-  # firebase_storage: ^12.2.0  # Firebase Storage for storing files
-  # firebase_messaging: ^15.1.0  # Firebase Cloud Messaging for push notifications
+  
 
   cupertino_icons: ^1.0.6
   

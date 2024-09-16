@@ -1,7 +1,10 @@
-// ignore_for_file: must_be_immutable, prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last, unnecessary_import, sized_box_for_whitespace, unnecessary_string_interpolations
+// ignore_for_file: use_build_context_synchronously
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rich_pich_2/functions/push_to_next_page.dart';
+import 'package:rich_pich_2/user_auth/fireabase_auth_implementation/firebase_auth_services.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -14,6 +17,27 @@ class _RegisterState extends State<Register> {
   late final TextEditingController _email;
   late final TextEditingController _password;
   late final TextEditingController _userName;
+  final FirebaseAuthService _auth = FirebaseAuthService();
+
+ Future<void> register() async {
+  try {
+    UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+      email: _email.text,
+      password: _password.text,
+    );
+    // Registration successful
+    print('User registered: ${userCredential.user!.email}');
+
+    // Navigate to the home page
+
+    // pushToNextScreen(context, 'HomePage'); // Replace '/home' with your actual route name
+
+  } catch (e) {
+    print('Error registering user: $e');
+    // Handle error, e.g., show an error message to the user
+  }
+}
+
 
   @override
   void initState() {
@@ -73,51 +97,27 @@ class _RegisterState extends State<Register> {
             SizedBox(
               height: 30,
             ),
-            CutsomTextField(
-                name: _userName,
-                nama: "Username",
-                clearText: () {
-                  clearText(_userName);
-                }),
-            CutsomTextField(
+            CustomTextField(
               name: _email,
               nama: "Email",
               clearText: () {
                 clearText(_email);
               },
             ),
-            CutsomTextField(
+            CustomTextField(
               name: _password,
               nama: "Password",
               clearText: () {
                 clearText(_password);
               },
             ),
-             SizedBox(
+            SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.85,
-              height: 50,
-              child: Center(
-                  child: Text(
-                'Next',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: Colors.white),
-              )),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: const Color.fromARGB(255, 0, 0, 0)),
-            ),
-             SizedBox(
+            TextButton(onPressed: (){register();pushToNextScreen(context, 'HomePage');}, child: Text('Next')),
+            SizedBox(
               height: MediaQuery.of(context).size.height * 0.03,
             ),
-            Text.rich(TextSpan(children: [
-              TextSpan(text: 'Need help? Visit our '),
-              TextSpan(text: 'help center', style: TextStyle(fontWeight: FontWeight.bold) ),
-            ]))
           ],
         ),
       ),
@@ -125,15 +125,18 @@ class _RegisterState extends State<Register> {
   }
 }
 
-class CutsomTextField extends StatelessWidget {
-  TextEditingController name = TextEditingController();
-  String nama;
+class CustomTextField extends StatelessWidget {
+  final TextEditingController name; // Use final for the controller
+  final String nama;
   final VoidCallback clearText;
-  CutsomTextField(
-      {super.key,
-      required this.name,
-      required this.nama,
-      required this.clearText});
+
+  CustomTextField({
+    super.key,
+    required this.name,
+    required this.nama,
+    required this.clearText,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -144,20 +147,20 @@ class CutsomTextField extends StatelessWidget {
         child: TextField(
           controller: name,
           decoration: InputDecoration(
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(width: 10),
-                  borderRadius: BorderRadius.circular(10)),
-              hintText: '$nama',
-              suffix: IconButton(
-                onPressed: () {
-                  clearText();
-                },
-                icon: Icon(
-                  Icons.clear,
-                  size: 18,
-                ),
+            border: OutlineInputBorder(
+              borderSide: BorderSide(width: 10),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            hintText: nama,
+            suffix: IconButton(
+              onPressed: clearText,
+              icon: Icon(
+                Icons.clear,
+                size: 18,
               ),
-              contentPadding: EdgeInsets.all(15)),
+            ),
+            contentPadding: EdgeInsets.all(15),
+          ),
         ),
       ),
     );

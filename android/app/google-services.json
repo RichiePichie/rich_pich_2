@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "760620556112",
+    "project_id": "richpich-45091",
+    "storage_bucket": "richpich-45091.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760620556112:android:615a3a6d5b916d46cd5655",
+        "android_client_info": {
+          "package_name": "com.example.rich_pich_2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "760620556112-jlcjpf1e5ob9sg8er4tsd293hg2iq69u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7YCrUjzXiZy9x-ih1AQWQ1yjLLH-neGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "760620556112-jlcjpf1e5ob9sg8er4tsd293hg2iq69u.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "760620556112-tqg8iu4fcv5hlajaqjrlctk1q5od823j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.richPich2",
+                "app_store_id": "1"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
