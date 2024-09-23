@@ -2,12 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:rich_pich_2/screens/page_indicator/page_indicator.dart';
 import 'package:rich_pich_2/screens/home_page.dart';
 import 'package:rich_pich_2/data/database.dart';
 import 'package:rich_pich_2/screens/login_register/login.dart';
 import 'package:rich_pich_2/screens/login_register/register.dart';
 import 'package:firebase_core/firebase_core.dart';
-
+import 'package:rich_pich_2/splash_screen.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -18,7 +19,7 @@ void main() async {
   await Firebase.initializeApp();
   var box = Hive.box('myBox');
   await Hive.openBox<Exercise>('exercisesBox');
-  await Hive.openBox<Workout>('workoutsBox'); 
+  await Hive.openBox<Workout>('workoutsBox');
 
   runApp(const MyApp());
 }
@@ -32,9 +33,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: SafeArea(child: Register()));
+        home: SafeArea(child: SplashScreen()));
   }
 }

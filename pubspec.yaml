@@ -25,11 +25,12 @@ dependencies:
   cloud_firestore: ^5.4.1
   firebase_auth: ^5.2.1
   firebase_storage: ^12.3.0
-
+  smooth_page_indicator: ^1.2.0+3
 
   
 
   cupertino_icons: ^1.0.6
+  firebase_database: ^11.1.2
   
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: avoid_print, prefer_const_constructors
 
 import 'dart:io';
 
@@ -6,6 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:iconable_avatar/iconable_avatar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rich_pich_2/functions/part_of_day.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rich_pich_2/functions/push_to_next_page.dart';
+import 'package:rich_pich_2/widgets/header.dart';
+import 'package:rich_pich_2/widgets/to_do_homescreen.dart';
+import 'package:rich_pich_2/widgets/trackers.dart';
 
 class TopOne extends StatefulWidget {
   const TopOne({super.key});
@@ -16,6 +22,10 @@ class TopOne extends StatefulWidget {
 
 class _TopOneState extends State<TopOne> {
   File? selectedImage;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  String? userId;
+  late DocumentReference userDoc;
+  String? username;
 
   Future<void> pickImageFromGallery() async {
     final returnedImage =
@@ -29,6 +39,35 @@ class _TopOneState extends State<TopOne> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId != null) {
+      userDoc = firestore.collection('users').doc(userId);
+      fetchUserData();
+    } else {
+      print("User not logged in");
+    }
+  }
+
+  Future<void> fetchUserData() async {
+    try {
+      DocumentSnapshot documentSnapshot = await userDoc.get();
+      if (documentSnapshot.exists) {
+        var userData = documentSnapshot.data() as Map<String, dynamic>;
+        setState(() {
+          username = userData['username']; // Assuming 'username' is the field name
+        });
+        print("User data: $userData");
+      } else {
+        print("User document does not exist");
+      }
+    } catch (error) {
+      print("Error fetching user data: $error");
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
     int day = now.day;
@@ -36,6 +75,7 @@ class _TopOneState extends State<TopOne> {
     int year = now.year;
     String date = formatDateAsString(day, month, year);
     String partOfDay = getPartOfDay(now.hour);
+
     return Container(
       height: 200,
       decoration: BoxDecoration(
@@ -43,8 +83,7 @@ class _TopOneState extends State<TopOne> {
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(30),
               bottomRight: Radius.circular(30)),
-              boxShadow: [BoxShadow(spreadRadius: 7, color: Colors.grey.withOpacity(0.9))]
-              ),
+          boxShadow: [BoxShadow(spreadRadius: 7, color: Colors.grey.withOpacity(0.9))]),
       child: Column(
         children: [
           Padding(
@@ -56,12 +95,10 @@ class _TopOneState extends State<TopOne> {
                   children: [
                     Text(
                       'Welcome back',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     Text(' $date',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 12)),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
                   ],
                 ),
                 Icon(
@@ -89,8 +126,7 @@ class _TopOneState extends State<TopOne> {
                           radius: 50,
                           backgroundImage: selectedImage != null
                               ? FileImage(selectedImage!)
-                              : AssetImage('assets/default_avatar.png')
-                                  as ImageProvider,
+                              : AssetImage('assets/default_avatar.png') as ImageProvider,
                         ),
                       ),
                     ),
@@ -98,9 +134,10 @@ class _TopOneState extends State<TopOne> {
                   Padding(
                     padding: const EdgeInsets.only(left: 20.0, bottom: 40),
                     child: Text(
-                      'Good $partOfDay, Richard',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      username != null
+                          ? 'Good $partOfDay, $username!'
+                          : 'Good $partOfDay!',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
                   SizedBox(
