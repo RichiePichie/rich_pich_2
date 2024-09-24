@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:rich_pich_2/screens/page_indicator/page_1.dart';
+import 'package:rich_pich_2/screens/login_register/register.dart';
+import 'package:rich_pich_2/screens/page_indicator/regiser1.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class PageIndicator extends StatefulWidget {
@@ -29,7 +30,7 @@ class _PageIndicatorState extends State<PageIndicator> {
             physics: NeverScrollableScrollPhysics(),
             controller: _pageController,
             children: [
-              Page1(),
+              Regiser1(),
               Container(color: Colors.green),
               Container(color: Colors.blue),
             ],
