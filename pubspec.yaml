@@ -26,6 +26,7 @@ dependencies:
   firebase_auth: ^5.2.1
   firebase_storage: ^12.3.0
   smooth_page_indicator: ^1.2.0+3
+  provider: ^6.0.0  # or the latest version
 
   
 

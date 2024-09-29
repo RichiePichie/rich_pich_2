@@ -5,6 +5,7 @@ import 'package:rich_pich_2/screens/home_page.dart';
 import 'package:rich_pich_2/screens/workoutScreen/add_new_workout.dart';
 // import 'package:rich_pich_2/screens/workoutTracker/workout.dart';
 import 'package:rich_pich_2/screens/workoutScreen/wourkout_screen_main.dart';
+
 void pushToNextScreen(BuildContext context, String routeName) {
   final Map<String, WidgetBuilder> routes = {
     'Workout Tracker': (context) => Workouttrackermain(),
@@ -12,7 +13,7 @@ void pushToNextScreen(BuildContext context, String routeName) {
     // 'To Do List': (context) => MyForm(),
     'addNewWorkout': (context) => AddNewWorkout(),
     // 'desiredWorkout': (context) => Workout(),
-    'HomePage':(context)=>HomePage(),
+    'HomePage': (context) => HomePage(),
   };
 
   final screenBuilder = routes[routeName];
@@ -25,3 +26,8 @@ void pushToNextScreen(BuildContext context, String routeName) {
   } else {}
 }
 
+final PageController pageController = PageController();
+void nextPage() {
+  pageController.nextPage(
+      duration: Duration(milliseconds: 300), curve: Curves.easeInBack);
+}

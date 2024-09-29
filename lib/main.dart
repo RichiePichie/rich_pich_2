@@ -35,6 +35,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           useMaterial3: true,
         ),
-        home: SafeArea(child: PageIndicator()));
+        home: SafeArea(
+          child: PageIndicator(),
+        ));
   }
 }
