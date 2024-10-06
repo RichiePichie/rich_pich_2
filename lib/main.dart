@@ -20,6 +20,7 @@ void main() async {
   var box = Hive.box('myBox');
   await Hive.openBox<Exercise>('exercisesBox');
   await Hive.openBox<Workout>('workoutsBox');
+  await Hive.openBox<Workout>('userbox');
 
   runApp(const MyApp());
 }

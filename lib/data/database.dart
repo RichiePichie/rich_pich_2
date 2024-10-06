@@ -26,11 +26,10 @@ class Workout {
 
   Workout({required this.name, required this.exercises});
 }
+
 @HiveType(typeId: 2)
-class ToDo {
+class User {
   @HiveField(0)
-  int? taskID;
-  String? taskName;
-  String? taskType;
-  bool? status;
+  String? Username;
+  
 }

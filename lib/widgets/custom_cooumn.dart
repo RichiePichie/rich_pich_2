@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 
 class CustomColumn extends StatelessWidget {
   final String text;
-  final int numberOfYears;
+  final int? numberOfYears;
   final bool isSelected; // to track if this column is selected
   final VoidCallback onTap; // callback for handling tap
-
   const CustomColumn({
     super.key,
     required this.text,
-    required this.numberOfYears,
     required this.isSelected,
     required this.onTap,
+    this.numberOfYears,
   });
 
   @override
@@ -24,7 +23,8 @@ class CustomColumn extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.67,
           height: MediaQuery.of(context).size.height * 0.05,
           decoration: BoxDecoration(
-            color: isSelected ? Colors.blue : Colors.grey, // Highlight if selected
+            color:
+                isSelected ? Colors.blue : Colors.grey, // Highlight if selected
             borderRadius: BorderRadius.circular(20),
           ),
           child: Row(
@@ -41,4 +41,3 @@ class CustomColumn extends StatelessWidget {
     );
   }
 }
-

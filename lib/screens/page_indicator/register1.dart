@@ -3,10 +3,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:iconable_avatar/iconable_avatar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rich_pich_2/functions/push_to_next_page.dart';
-import 'package:rich_pich_2/screens/page_indicator/reg_provider.dart';
 import 'dart:io';
 import 'package:provider/provider.dart';
 import 'package:rich_pich_2/widgets/custom_textfield.dart';
@@ -27,7 +27,7 @@ class RegisterState extends State<Register> {
   final FirebaseAuthService _auth = FirebaseAuthService();
   final CollectionReference user =
       FirebaseFirestore.instance.collection('users');
-
+  String get username => _userName.text;
   Future<void> register() async {
     try {
       UserCredential userCredential =
@@ -35,12 +35,19 @@ class RegisterState extends State<Register> {
         email: _email.text,
         password: _password.text,
       );
-      // Handle successful registration
+
+      // Save the username after successful registration
+      saveUsername();
+
       print('User registered: ${userCredential.user!.email}');
     } catch (e) {
       print('Error registering user: $e');
-      // Handle error, e.g., show an error message to the user
     }
+  }
+
+  void saveUsername() {
+    final _myBox = Hive.box('myBox');
+    _myBox.put('username', _userName.text);
   }
 
   @override
@@ -94,6 +101,7 @@ class RegisterState extends State<Register> {
             SizedBox(
               height: 60,
             ),
+            Text(''),
             Text(
               'Enter Your Details Below',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -125,16 +133,6 @@ class RegisterState extends State<Register> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
-            TextButton(
-                onPressed: () {
-                  user.add({
-                    'username': _userName.text,
-                    'email': _email.text,
-                    'password': _password.text,
-                  });
-                  register();
-                },
-                child: Text('Next')),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.03,
             ),
